@@ -5,6 +5,7 @@ class TemurUsers(models.Model):
     name = models.CharField(max_length=50)
     tel = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
+    registration = models.DateTimeField(auto_now_add=True)
     class Meta:
         unique_together = ('name','tel','email')
 
