@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import TemurUsers, Courses
 from .serializers import TemurUsersSerializer, CoursesSerializer
+from .permissions import IsSupperUserOrReadOnly
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,7 +11,8 @@ import datetime
 class TemurUserViews(ModelViewSet):
     queryset = TemurUsers.objects.all()
     serializer_class = TemurUsersSerializer
-    
+    permission_classes = [IsSupperUserOrReadOnly]
+
     def create(self, request, *args, **kwargs):
         data = request.data
         course_name = data.get('course')
@@ -37,3 +39,4 @@ class TemurUserViews(ModelViewSet):
 class CourseViews(ModelViewSet):
     queryset = Courses.objects.all()
     serializer_class = CoursesSerializer
+    permission_classes = [IsSupperUserOrReadOnly]
